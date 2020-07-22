@@ -21,7 +21,6 @@ const UserSchema = new schema({
   },
   avatar: {
     type: String,
-    required: false,
   },
 });
 
