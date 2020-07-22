@@ -10,6 +10,7 @@ const app = express();
 // body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
 // Database URI
 const dbURI = require("./config/keys").mongoURI;
 
