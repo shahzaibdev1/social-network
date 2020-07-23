@@ -3,6 +3,7 @@ const User = require("../../config/models/User");
 const router = express.Router();
 const gravatar = require("gravatar");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 // @route   Get api/users/test
 // @desc    Tests users Route
@@ -50,4 +51,27 @@ router.post("/register", (req, res) => {
   });
 });
 
+// @route Get /api/users/login
+// @desc  Login User | returning JWT Token
+// access Public
+router.post("/login", (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+
+  // Find user by email
+  User.findOne({ email }).then((user) => {
+    if (!user) {
+      return res.status(400).json({ email: "User not found" });
+    }
+
+    // Compare passwords
+    bcrypt.compare(password, user.password).then((isMatch) => {
+      if (isMatch) {
+        return res.json({ msg: "Success" });
+      } else {
+        return res.status(400).json({ password: "Incorrect Password" });
+      }
+    });
+  });
+});
 module.exports = router;
