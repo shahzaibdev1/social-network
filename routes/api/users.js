@@ -9,19 +9,13 @@ const passport = require("passport");
 const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
 
-// @route   Get api/users/test
-// @desc    Tests users Route
-// @access  Public
-router.get("/test", (req, res) =>
-  res.json({ msg: "Users router is working..." })
-);
-
 // @route Get /api/users/register
 // @desc  Registers User
 // access Public
 router.post("/register", (req, res) => {
   // Registration Validation
   const { errors, isValid } = validateRegisterInput(req.body);
+  console.log("Got a request");
 
   if (!isValid) {
     return res.status(400).json(errors);
