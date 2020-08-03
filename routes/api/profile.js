@@ -9,6 +9,7 @@ const validateProfileInput = require("../../validation/profile");
 const profile = require("../../validation/profile");
 const validateExperienceInput = require("../../validation/experience");
 const validateEducationInput = require("../../validation/education");
+const { json } = require("body-parser");
 
 // @route   Get api/profile/test
 // @desc    Tests profile Route
@@ -174,9 +175,9 @@ router.post(
   }
 );
 
-// @route   GET api/profile/education
+// @route   post api/profile/education
 // @desc    Add Education Sector
-// access    Private
+// access   Private
 router.post(
   "/education",
   passport.authenticate("jwt", { session: false }),
@@ -203,6 +204,27 @@ router.post(
         res.json(profile);
       });
     });
+  }
+);
+
+// @route   Delete api/profile/Experience
+// @desc    Delete Experience Sector
+// access   Private
+router.delete(
+  "/experience/:exp_id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Profile.findOne({ user: req.user.id })
+      .then((profile) => {
+        const removeIndex = profile.experience
+          .map((item) => item.id)
+          .indexOf(req.params.exp_id);
+
+        profile.experience.splice(removeIndex, 1);
+
+        profile.save().then((profile) => res.json(profile));
+      })
+      .catch((err) => res.status(400).json(err));
   }
 );
 
