@@ -66,7 +66,6 @@ const profileSchema = new Schema({
 
       to: {
         type: Date,
-        required: true,
       },
 
       current: {
@@ -76,7 +75,6 @@ const profileSchema = new Schema({
 
       description: {
         type: String,
-        required: true,
       },
     },
   ],
@@ -109,7 +107,6 @@ const profileSchema = new Schema({
 
       to: {
         type: Date,
-        required: true,
       },
 
       current: {
@@ -119,7 +116,6 @@ const profileSchema = new Schema({
 
       description: {
         type: String,
-        required: true,
       },
     },
   ],
