@@ -40,6 +40,19 @@ router.get(
   }
 );
 
+// @route   Delete api/profile
+// @desc    Delete complete profile
+// access   Private
+router.delete(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Profile.deleteOne({ user: req.user.id }).then(() => {
+      User.findOneAndRemove({ _id: req.user.id });
+    });
+  }
+);
+
 // @route   Get api/profile/handle/:handle
 // @desc    Get profile using handle
 // @access  Public
