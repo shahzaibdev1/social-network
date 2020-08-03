@@ -8,6 +8,7 @@ const User = require("../../models/User");
 const validateProfileInput = require("../../validation/profile");
 const profile = require("../../validation/profile");
 const validateExperienceInput = require("../../validation/experience");
+const validateEducationInput = require("../../validation/education");
 
 // @route   Get api/profile/test
 // @desc    Tests profile Route
@@ -174,8 +175,8 @@ router.post(
 );
 
 // @route   GET api/profile/education
-// @desc    Get all the available profiles
-// access    Public
+// @desc    Add Education Sector
+// access    Private
 router.post(
   "/education",
   passport.authenticate("jwt", { session: false }),
@@ -197,7 +198,7 @@ router.post(
         current: req.body.current,
         description: req.body.description,
       };
-      profile.education.unshift(newEdu);
+      profile.Education.unshift(newEdu);
       profile.save().then((profile) => {
         res.json(profile);
       });
