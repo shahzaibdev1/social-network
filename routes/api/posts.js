@@ -5,13 +5,7 @@ const passport = require("passport");
 const Post = require("../../models/Post");
 const validatePostInput = require("../../validation/post");
 const Profile = require("../../models/Profile");
-
-// @route   Get api/posts/test
-// @desc    Tests posts Route
-// @access  Public
-router.get("/test", (req, res) =>
-  res.json({ msg: "Posts router is working..." })
-);
+const { response } = require("express");
 
 // @route   POST api/posts
 // @desc    create new posts
@@ -142,13 +136,18 @@ router.post(
   }
 );
 
-//  @route  /api/posts/comment/:id
+//  @route  POST /api/posts/comment/:id
 //  @desc   Add comment to post
 //  @access Private
 router.post(
   "/comment/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
+    const { errors, isValid } = validatePostInput(req.body);
+
+    if (!isValid) {
+      return res.status(400).json(errors);
+    }
     Post.findById(req.params.id)
       .then((post) => {
         const newComment = {
@@ -162,6 +161,40 @@ router.post(
         post.save().then((post) => res.json(post));
       })
       .catch((err) => res.status(404).json({ error: "Post not found" }));
+  }
+);
+
+//  @route  DELETE /api/posts/comment/:id/:comment_id
+//  @desc   Add comment to post
+//  @access Private
+router.delete(
+  "/comment/:id/:comment_id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Post.findById(req.params.id)
+      .then((post) => {
+        // Check to see if comment exists
+        if (
+          post.comments.filter(
+            (comment) => comment._id.toString() === req.params.comment_id
+          ).length === 0
+        ) {
+          return res
+            .status(404)
+            .json({ commentnotexists: "Comment does not exist" });
+        }
+
+        // Get remove index
+        const removeIndex = post.comments
+          .map((item) => item._id.toString())
+          .indexOf(req.params.comment_id);
+
+        // Splice comment out of array
+        post.comments.splice(removeIndex, 1);
+
+        post.save().then((post) => res.json(post));
+      })
+      .catch((err) => res.status(404).json({ postnotfound: "No post found" }));
   }
 );
 
