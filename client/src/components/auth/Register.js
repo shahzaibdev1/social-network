@@ -21,13 +21,16 @@ class Register extends Component {
     });
   };
 
+  // Handle on Register form submit
   handleSubmit = (e) => {
+    e.preventDefault();
     let newUser = {
       name: this.state.name,
       email: this.state.email,
       password: this.state.password,
       confirmPassword: this.state.confirmPassword,
     };
+    console.log(newUser);
   };
 
   render() {
