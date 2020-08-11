@@ -1,6 +1,35 @@
 import React, { Component } from "react";
 
 class Register extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    };
+  }
+
+  handleChange = (e) => {
+    let name = e.target.name;
+    let value = e.target.value;
+
+    this.setState({
+      [name]: value,
+    });
+  };
+
+  handleSubmit = (e) => {
+    let newUser = {
+      name: this.state.name,
+      email: this.state.email,
+      password: this.state.password,
+      confirmPassword: this.state.confirmPassword,
+    };
+  };
+
   render() {
     return (
       <div>
@@ -12,13 +41,15 @@ class Register extends Component {
                 <p className="lead text-center">
                   Create your DevConnector account
                 </p>
-                <form action="create-profile.html">
+                <form onSubmit={this.handleSubmit}>
                   <div className="form-group">
                     <input
                       type="text"
                       className="form-control form-control-lg"
                       placeholder="Name"
                       name="name"
+                      value={this.state.name}
+                      onChange={this.handleChange}
                       required
                     />
                   </div>
@@ -28,8 +59,10 @@ class Register extends Component {
                       className="form-control form-control-lg"
                       placeholder="Email Address"
                       name="email"
+                      onChange={this.handleChange}
+                      value={this.state.email}
                     />
-                    <small classNameName="form-text text-muted">
+                    <small className="form-text text-muted">
                       This site uses Gravatar so if you want a profile image,
                       use a Gravatar email
                     </small>
@@ -40,6 +73,8 @@ class Register extends Component {
                       className="form-control form-control-lg"
                       placeholder="Password"
                       name="password"
+                      onChange={this.handleChange}
+                      value={this.state.password}
                     />
                   </div>
                   <div className="form-group">
@@ -47,7 +82,9 @@ class Register extends Component {
                       type="password"
                       className="form-control form-control-lg"
                       placeholder="Confirm Password"
-                      name="password2"
+                      name="confirmPassword"
+                      onChange={this.handleChange}
+                      value={this.state.confirmPassword}
                     />
                   </div>
                   <input
