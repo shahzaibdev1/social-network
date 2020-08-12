@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Axios from "axios";
 
 class Register extends Component {
   constructor(props) {
@@ -31,6 +32,17 @@ class Register extends Component {
       confirmPassword: this.state.confirmPassword,
     };
     console.log(newUser);
+    Axios.post(`http://127.0.0.1:5000/api/users/register`, {
+      name: newUser.name,
+      email: newUser.email,
+      password: newUser.password,
+      confirmPassword: newUser.confirmPassword,
+    })
+      .then((res) => {
+        console.log(res);
+        console.log(res.data);
+      })
+      .catch((res) => console.log(res));
   };
 
   render() {
