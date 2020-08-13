@@ -10,6 +10,7 @@ class Register extends Component {
       email: "",
       password: "",
       confirmPassword: "",
+      errors: {},
     };
   }
 
@@ -25,27 +26,24 @@ class Register extends Component {
   // Handle on Register form submit
   handleSubmit = (e) => {
     e.preventDefault();
+
     let newUser = {
       name: this.state.name,
       email: this.state.email,
       password: this.state.password,
       confirmPassword: this.state.confirmPassword,
     };
-    console.log(newUser);
-    Axios.post(`http://127.0.0.1:5000/api/users/register`, {
-      name: newUser.name,
-      email: newUser.email,
-      password: newUser.password,
-      confirmPassword: newUser.confirmPassword,
-    })
+
+    Axios.post(`http://127.0.0.1:5000/api/users/register`, newUser)
       .then((res) => {
-        console.log(res);
         console.log(res.data);
       })
-      .catch((res) => console.log(res));
+      .catch((err) => this.setState({ errors: err.response.data }));
   };
 
   render() {
+    let { errors } = this.state;
+
     return (
       <div>
         <div className="register">
@@ -56,27 +54,41 @@ class Register extends Component {
                 <p className="lead text-center">
                   Create your DevConnector account
                 </p>
-                <form onSubmit={this.handleSubmit}>
+                <form noValidate onSubmit={this.handleSubmit}>
                   <div className="form-group">
                     <input
                       type="text"
-                      className="form-control form-control-lg"
+                      className={`form-control form-control-lg ${
+                        errors.name ? "is-invalid" : ""
+                      }`}
                       placeholder="Name"
                       name="name"
                       value={this.state.name}
                       onChange={this.handleChange}
                       required
                     />
+                    {errors.name ? (
+                      <div className="invalid-feedback">{errors.name}</div>
+                    ) : (
+                      ""
+                    )}
                   </div>
                   <div className="form-group">
                     <input
                       type="email"
-                      className="form-control form-control-lg"
+                      className={`form-control form-control-lg ${
+                        errors.name ? "is-invalid" : ""
+                      }`}
                       placeholder="Email Address"
                       name="email"
                       onChange={this.handleChange}
                       value={this.state.email}
                     />
+                    {errors.email ? (
+                      <div className="invalid-feedback">{errors.email}</div>
+                    ) : (
+                      ""
+                    )}
                     <small className="form-text text-muted">
                       This site uses Gravatar so if you want a profile image,
                       use a Gravatar email
@@ -85,22 +97,38 @@ class Register extends Component {
                   <div className="form-group">
                     <input
                       type="password"
-                      className="form-control form-control-lg"
+                      className={`form-control form-control-lg ${
+                        errors.name ? "is-invalid" : ""
+                      }`}
                       placeholder="Password"
                       name="password"
                       onChange={this.handleChange}
                       value={this.state.password}
                     />
+                    {errors.password ? (
+                      <div className="invalid-feedback">{errors.password}</div>
+                    ) : (
+                      ""
+                    )}
                   </div>
                   <div className="form-group">
                     <input
                       type="password"
-                      className="form-control form-control-lg"
+                      className={`form-control form-control-lg ${
+                        errors.name ? "is-invalid" : ""
+                      }`}
                       placeholder="Confirm Password"
                       name="confirmPassword"
                       onChange={this.handleChange}
                       value={this.state.confirmPassword}
                     />
+                    {errors.confirmPassword ? (
+                      <div className="invalid-feedback">
+                        {errors.confirmPassword}
+                      </div>
+                    ) : (
+                      ""
+                    )}
                   </div>
                   <input
                     type="submit"
