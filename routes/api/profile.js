@@ -11,13 +11,6 @@ const validateExperienceInput = require("../../validation/experience");
 const validateEducationInput = require("../../validation/education");
 const { json } = require("body-parser");
 
-// @route   Get api/profile/test
-// @desc    Tests profile Route
-// @access  Public
-router.get("/test", (req, res) =>
-  res.json({ msg: "Profile router is working..." })
-);
-
 // @route   Get api/profile/
 // @desc    Get current User's Profile
 // @access  Private
