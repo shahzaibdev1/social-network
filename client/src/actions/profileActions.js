@@ -2,18 +2,18 @@ import axios from "axios";
 import { GET_PROFILE, PROFILE_LOADING, GET_ERRORS } from "./types";
 
 // Get current profile
-export const getCurrentProfile = () => (dispach) => {
-  dispach(setProfileLoading());
+export const getCurrentProfile = () => (dispatch) => {
+  dispatch(setProfileLoading());
   axios
     .get("/api/profile")
     .then((res) =>
-      dispach({
+      dispatch({
         type: GET_PROFILE,
         payload: res.data,
       })
     )
     .catch((err) =>
-      dispach({
+      dispatch({
         type: GET_PROFILE,
         payload: {},
       })
