@@ -21,6 +21,6 @@ export default function (state = initialState, action) {
         loading: false,
       };
     default:
-      break;
+      return state;
   }
 }
