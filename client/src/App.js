@@ -1,10 +1,12 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./store";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils.js/setAuthToken";
 import { setCurrentUser, logoutUser } from "./actions/authActions";
+
+import PrivateRoute from "./components/common/PrivateRoute";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.css";
@@ -49,7 +51,9 @@ class App extends Component {
             <div className="container">
               <Route path="/login" exact component={Login} />
               <Route path="/register" exact component={Register} />
-              <Route path="/dashboard" exact component={Dashboard} />
+              <Switch>
+                <PrivateRoute path="/dashboard" exact component={Dashboard} />
+              </Switch>
             </div>
             <Footer />
           </div>
