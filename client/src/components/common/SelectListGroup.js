@@ -1,16 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const SelectListGroup = ({
-  name,
-  placeholder,
-  value,
-  error,
-  info,
-  options,
-  onChange,
-  children,
-}) => {
+const SelectListGroup = ({ name, value, error, info, options, onChange }) => {
   const selectOptions = options.map((option) => (
     <option key={option.label} value={option.value}>
       {option.label}
@@ -26,16 +17,14 @@ const SelectListGroup = ({
       >
         {selectOptions}
       </select>
-      {info ? <small className="form-text text-muted"></small> : ""}
       {error ? <div className="invalid-feedback">{error}</div> : ""}
-      {children}
+      {info ? <small className="form-text text-muted"></small> : ""}
     </div>
   );
 };
 
 SelectListGroup.propTypes = {
   name: PropTypes.string.isRequired,
-  placeholder: PropTypes.string,
   value: PropTypes.string.isRequired,
   error: PropTypes.string,
   info: PropTypes.string,

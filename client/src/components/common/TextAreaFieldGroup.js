@@ -9,8 +9,6 @@ const TextAreaFieldGroup = ({
   info,
 
   onChange,
-
-  children,
 }) => {
   return (
     <div className="form-group">
@@ -21,9 +19,8 @@ const TextAreaFieldGroup = ({
         onChange={onChange}
         name={name}
       />
-      {info ? <small className="form-text text-muted"></small> : ""}
       {error ? <div className="invalid-feedback">{error}</div> : ""}
-      {children}
+      {info ? <small className="form-text text-muted"></small> : ""}
     </div>
   );
 };

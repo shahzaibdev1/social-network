@@ -27,7 +27,6 @@ const InputGroup = ({
       />
 
       {error ? <div className="invalid-feedback">{error}</div> : ""}
-      {children}
     </div>
   );
 };
@@ -39,6 +38,10 @@ InputGroup.propTypes = {
   error: PropTypes.string,
   type: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
+};
+
+InputGroup.defaultProps = {
+  type: "text",
 };
 
 export default InputGroup;
