@@ -1,14 +1,20 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getCurrentProfile } from "../../actions/profileActions";
+import { deleteAccount } from "../../actions/profileActions";
 import Spinner from "../common/Spinner";
 import { Link } from "react-router-dom";
+import ProfileActions from "./ProfileActions";
 
 class Dashboard extends Component {
   componentDidMount() {
     this.props.getCurrentProfile();
   }
+
+  onDelete = (e) => {
+    this.props.deleteAccount();
+  };
 
   render() {
     const { user } = this.props.auth;
@@ -21,7 +27,19 @@ class Dashboard extends Component {
     } else {
       // Check if the user has profile
       if (Object.keys(profile).length > 0) {
-        dashboardContent = <h4>TODO: Display Profile</h4>;
+        dashboardContent = (
+          <Fragment>
+            <p className="lead text-muted">
+              Welcome <Link to={`/profile/${profile.handle}`}>{user.name}</Link>
+            </p>
+            <ProfileActions />
+            {/* TODO: Experience and Education */}
+            <div style={{ marginBottom: "60px" }} />
+            <button onClick={this.onDelete} className="btn btn-danger">
+              Delete My Account
+            </button>
+          </Fragment>
+        );
       }
 
       // If the user has no profile
@@ -37,6 +55,7 @@ class Dashboard extends Component {
         );
       }
     }
+
     return (
       <div className="dashboard">
         <div className="container">
@@ -56,6 +75,7 @@ Dashboard.propTypes = {
   profile: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
   getCurrentProfile: PropTypes.func.isRequired,
+  deleteAccount: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -63,4 +83,6 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { getCurrentProfile })(Dashboard);
+export default connect(mapStateToProps, { getCurrentProfile, deleteAccount })(
+  Dashboard
+);
