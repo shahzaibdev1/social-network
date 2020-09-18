@@ -7,7 +7,6 @@ import setAuthToken from "./utils.js/setAuthToken";
 import { setCurrentUser, logoutUser } from "./actions/authActions";
 
 import PrivateRoute from "./components/common/PrivateRoute";
-
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.css";
 import "./App.css";
@@ -20,6 +19,7 @@ import Dashboard from "./components/dashboard/Dashboard";
 import { clearCurrentProfile } from "./actions/profileActions";
 import CreateProfile from "./components/create-profile/CreateProfile";
 import EditProfile from "./components/edit-profile/EditProfile";
+import AddExperience from "./components/add-info/AddExperience";
 
 // Check for token
 if (localStorage.jwtToken) {
@@ -69,6 +69,14 @@ class App extends Component {
                   path="/edit-profile"
                   exact
                   component={EditProfile}
+                />
+              </Switch>
+
+              <Switch>
+                <PrivateRoute
+                  path="/add-experience"
+                  exact
+                  component={AddExperience}
                 />
               </Switch>
             </div>

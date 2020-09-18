@@ -20,6 +20,7 @@ const TextFieldGroup = ({
         placeholder={placeholder}
         value={value}
         onChange={onChange}
+        disabled={disabled}
         name={name}
       />
       {error ? <div className="invalid-feedback">{error}</div> : ""}

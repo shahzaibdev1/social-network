@@ -20,7 +20,7 @@ const TextAreaFieldGroup = ({
         name={name}
       />
       {error ? <div className="invalid-feedback">{error}</div> : ""}
-      {info ? <small className="form-text text-muted"></small> : ""}
+      {info ? <small className="form-text text-muted">{info}</small> : ""}
     </div>
   );
 };
