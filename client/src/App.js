@@ -21,6 +21,7 @@ import CreateProfile from "./components/create-profile/CreateProfile";
 import EditProfile from "./components/edit-profile/EditProfile";
 import AddExperience from "./components/add-info/AddExperience";
 import AddEducation from "./components/add-info/AddEducation";
+import "bootstrap";
 
 // Check for token
 if (localStorage.jwtToken) {
