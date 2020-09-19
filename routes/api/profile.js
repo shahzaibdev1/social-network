@@ -229,7 +229,7 @@ router.post(
   }
 );
 
-// @route   Delete api/profile/Experience
+// @route   Delete /api/profile/experience
 // @desc    Delete Experience Sector
 // access   Private
 router.delete(
