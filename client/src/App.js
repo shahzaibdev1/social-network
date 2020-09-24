@@ -23,6 +23,7 @@ import AddExperience from "./components/add-info/AddExperience";
 import AddEducation from "./components/add-info/AddEducation";
 import "bootstrap";
 import Profiles from "./components/profiles/Profiles";
+import Profile from "./components/profile/Profile";
 
 // Check for token
 if (localStorage.jwtToken) {
@@ -57,6 +58,7 @@ class App extends Component {
               <Route path="/login" exact component={Login} />
               <Route path="/register" exact component={Register} />
               <Route path="/profiles" exact component={Profiles} />
+              <Route path="/profile/:handle" component={Profile} />
               <Switch>
                 <PrivateRoute path="/dashboard" exact component={Dashboard} />
               </Switch>
