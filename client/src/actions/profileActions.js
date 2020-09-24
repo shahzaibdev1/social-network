@@ -6,6 +6,7 @@ import {
   CLEAR_CURRENT_PROFILE,
   GET_ERRORS,
   SET_CURRENT_USER,
+  GET_PROFILES,
 } from "./types";
 
 // Get current profile
@@ -23,6 +24,26 @@ export const getCurrentProfile = () => (dispatch) => {
       dispatch({
         type: GET_PROFILE,
         payload: {},
+      })
+    );
+};
+
+// Get all the profiles
+
+export const fetchProfiles = () => (dispatch) => {
+  dispatch(setProfileLoading());
+  axios
+    .get("/api/profile/all")
+    .then((res) =>
+      dispatch({
+        type: GET_PROFILES,
+        payload: res.data,
+      })
+    )
+    .catch((err) =>
+      dispatch({
+        type: GET_PROFILES,
+        payload: null,
       })
     );
 };
