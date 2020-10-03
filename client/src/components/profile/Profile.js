@@ -2,7 +2,6 @@ import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import ProfileAbout from "./ProfileAbout";
 import ProfileCreds from "./ProfileCreds";
-import ProfileGithub from "./ProfileGithub";
 import ProfileHeader from "./ProfileHeader";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
@@ -39,9 +38,6 @@ class Profile extends Component {
             education={profile.Education}
             experience={profile.experience}
           />
-          {profile.githubusername ? (
-            <ProfileGithub username={profile.githubusername} />
-          ) : null}
         </div>
       );
     }
