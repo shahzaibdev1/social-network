@@ -1,6 +1,7 @@
 import axios from "axios";
 import {
   ADD_POST,
+  DELETE_POST,
   GET_ERRORS,
   GET_POST,
   GET_POSTS,
@@ -40,6 +41,54 @@ export const getPosts = () => (dispach) => {
       dispach({
         type: GET_POSTS,
         payload: null,
+      })
+    );
+};
+
+// Delete Post
+export const deletePost = (id) => (dispach) => {
+  axios
+    .delete(`/api/posts/${id}`)
+    .then((res) => {
+      dispach({
+        type: DELETE_POST,
+        payload: id,
+      });
+    })
+    .catch((err) =>
+      dispach({
+        type: GET_ERRORS,
+        payload: err.response.data,
+      })
+    );
+};
+
+// Add like
+export const addLike = (id) => (dispach) => {
+  axios
+    .post(`/api/posts/like/${id}`)
+    .then((res) => {
+      dispach(getPosts());
+    })
+    .catch((err) =>
+      dispach({
+        type: GET_ERRORS,
+        payload: err.response.data,
+      })
+    );
+};
+
+// remove like
+export const removeLike = (id) => (dispach) => {
+  axios
+    .post(`/api/posts/unlike/${id}`)
+    .then((res) => {
+      dispach(getPosts());
+    })
+    .catch((err) =>
+      dispach({
+        type: GET_ERRORS,
+        payload: err.response.data,
       })
     );
 };
