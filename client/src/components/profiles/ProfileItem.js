@@ -9,7 +9,7 @@ export class ProfileItem extends Component {
     return (
       <div className="card card-body bg-light mb-4">
         <div className="row">
-          <div className="col-2">
+          <div className="col-3">
             <img
               src={profile.user.avatar}
               alt="Avatar"
